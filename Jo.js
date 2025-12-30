@@ -14,7 +14,7 @@ let obh = Math.random()*3
 let jump = false;
 let jt = 0;
 let lt = 0;
-
+let sob = true;
 
 function clamp (value, min, max){
   return Math.max(min, Math.min(value, max));
@@ -61,6 +61,14 @@ function update(){
       player.y = clamp(player.y, 0, 300);
       jt=0;
   }
+
+  if(sob){
+    spobs()
+    for ( let i = obstacles.length-1, i>=0, i-- ) {
+      const o = {obstacles[i]};
+      const b = {obstacles[i-1];} }
+  
+    
 
 //렌더링
 function ren(){
