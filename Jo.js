@@ -66,29 +66,28 @@ function update(dt){
 
   st += dt
   if(st >= 700){
-    obs = Math.round(Math.random()*4)
     spobs();
-    st = 0
-    obstacles.height = obs
-    obstacles.y = 300 - obs
-  }
+    obh = clamp(obh, 0, 30);
   
-  for ( let i = obstacles.length-1; i>=0; i-- ) {
-      const o = obstacles[i];
-      //const b = obstacles[i-1];
-      //const uou = o.y - b.y ;
+    for ( let i = obstacles.length-1; i>=0; i-- ) {
+        const o = obstacles[i];
+        //const b = obstacles[i-1];
+        //const uou = o.y - b.y ;
+  
+        o.x -= o.speed * dt * 0.1;
+        //o.height = clamp(o.height, 0, 30);
+        //uou = clamp(uou, -20 ,10);
+  
+       if(player.x + player.width >= o.x && player.y + player.height >= o.y){
+         game.over = true;
+       }
+       if(o.x <= WIDTH - o.width){
+         spobs();}
+       if(o.x + o.width <= 0){
+         obstacles.splice(i,1);}
+    }
 
-      o.x -= o.speed * dt * 0.1;
-      o.height = clamp(o.height, 0, 30);
-      //uou = clamp(uou, -20 ,10);
-
-     if(player.x >= o.x && player.y >= o.y){
-       game.over = true;
-     }
-     if(o.x <= WIDTH - o.width){
-       spobs();}
-     if(o.x + o.width <= 0){
-       obstacles.splice(i,1);}
+    st = 0;
   }
 }
           
@@ -105,7 +104,7 @@ function ren(){
   //장애물
   ctx.fillStyle = "white"
   for ( let o of obstacles ){
-    ctx.fillRect(o.x, o.y, o.width, o.height)
+    ctx.fillRect(o.x, 300-obh, o.width, obh)
   }
 
   //게임 오버
