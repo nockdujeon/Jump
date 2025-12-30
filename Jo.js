@@ -84,9 +84,8 @@ function update(){
        obstacles.splice(i,1);}
     }
   }
-      
-  
-    
+}
+          
 
 //렌더링
 
