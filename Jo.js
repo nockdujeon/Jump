@@ -10,7 +10,7 @@ const game = {
   score : 0 
 };
 
-let obh = Math.random()*3
+let obh = Math.round(Math.random()*4)
 let jump = false;
 let jt = 0;
 let lt = 0;
@@ -36,8 +36,9 @@ function spobs(){
   obstacles.push(
     x= 670,
     y= 300 - obh,
-    width= 30,
-    height= obh
+    width= 40,
+    height= obh * 10,
+    speed = 5
   );
 };
 
@@ -63,10 +64,27 @@ function update(){
   }
 
   if(sob){
-    spobs()
+    spobs();
+    sob = false;
     for ( let i = obstacles.length-1, i>=0, i-- ) {
-      const o = {obstacles[i]};
-      const b = {obstacles[i-1];} }
+      const o = obstacles[i];
+      const b = obstacles[i-1];
+      const uou = o.y - b.y ;
+
+      o.x -= o.speed * dt * 0.1;
+      o.height = clamp(o.height, 0, 3);
+      uou = clamp(uou, -2 ,1);
+
+     if(player.x >= o.x && player.y <= o.y){
+       game.over = true;
+     }
+     if(o.x <= WIDTH - o.width){
+       sob = true;}
+     if(o.x + o.width <= 0){
+       obstacles.splice(i,1);}
+    }
+  }
+      
   
     
 
