@@ -14,7 +14,7 @@ let obh = Math.round(Math.random()*4)
 let jump = false;
 let jt = 0;
 let lt = 0;
-let sob = true;
+let sㅅ = 0;
 
 function clamp (value, min, max){
   return Math.max(min, Math.min(value, max));
@@ -33,13 +33,13 @@ const obstacles = [];
 function spobs(){
   if (game.over) return;
   
-  obstacles.push(
+  obstacles.push({
     x= 670,
     y= 300 - obh,
     width= 40,
     height= obh * 10,
     speed = 5
-  );
+  });
 };
 
 //입력 처리
@@ -63,23 +63,24 @@ function update(){
       jt=0;
   }
 
-  if(sob){
+  st += dt
+  if(st >= 700){
     spobs();
-    sob = false;
+    st = 0;
     for ( let i = obstacles.length-1, i>=0, i-- ) {
       const o = obstacles[i];
-      const b = obstacles[i-1];
-      const uou = o.y - b.y ;
+      //const b = obstacles[i-1];
+      //const uou = o.y - b.y ;
 
       o.x -= o.speed * dt * 0.1;
       o.height = clamp(o.height, 0, 30);
-      uou = clamp(uou, -20 ,10);
+      //uou = clamp(uou, -20 ,10);
 
      if(player.x >= o.x && player.y <= o.y){
        game.over = true;
      }
-     if(o.x <= WIDTH - o.width){
-       sob = true;}
+     /*if(o.x <= WIDTH - o.width){
+       sob = true;}*/
      if(o.x + o.width <= 0){
        obstacles.splice(i,1);}
     }
