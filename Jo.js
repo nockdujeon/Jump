@@ -14,7 +14,7 @@ let obh = Math.round(Math.random()*4)
 let jump = false;
 let jt = 0;
 let lt = 0;
-let sㅅ = 0;
+let st = 0;
 
 function clamp (value, min, max){
   return Math.max(min, Math.min(value, max));
