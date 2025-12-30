@@ -43,13 +43,18 @@ function spobs(){
 };
 
 //입력 처리
-window.addEventListener("keydown",e => {
+/*window.addEventListener("keydown",e => {
   if(e.code === 'Space'){
     jump = true;
     jt += dt;
   }
   })
-window.addEventListener("keyup",() => {jump = false;})
+window.addEventListener("keyup",() => {jump = false;})*/
+
+
+window.addEventListener("touchstart",() => {jump = true; jt+=dt;})
+window.addEventListener("touchend",() => {jump = false;})
+window.addEventListener("touchmove",e => {e.preventDefault();})
     
 
 //실제 작동
