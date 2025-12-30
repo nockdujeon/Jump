@@ -11,6 +11,9 @@ const game = {
 };
 
 let obh = Math.random()*3
+let jump = false;
+let jt = 0;
+let lt = 0;
 
 
 function clamp (value, min, max){
@@ -39,11 +42,47 @@ function spobs(){
 };
 
 //입력 처리
-window.addEventListner("keydown",e => {
+window.addEventListener("keydown",e => {
   if(e.code === 'Space'){
+    jump = true;
+    jt += dt;
+  }
+  })
+window.addEventListener("keyup",() => {jump = false;})
     
 
-
+//실제 작동
 function update(){
+  //플레이어 움직임
+  if(jump){
+    player.y += player.speed * dt * 0.1
+    if(jt >= 300)
+      player.y -= player.speed * dt * 0.1;
+      player.y = clamp(player.y, 0, 300);
+      jt=0;
+  }
+
+//렌더링
+function ren(){
+  ctx.fillStyle = "blue"
+  ctx.fillRect
+  
+
+  
+//루프
+function loop(time){
+  const dt = time - lt;
+  lt = time;
+
+  update(dt);
+  ren();
+  requestAnimationFrame(loop);
+}
+
+  //시작
+  requestAnimationFrame(loop);
+
+  
+    
   
 
