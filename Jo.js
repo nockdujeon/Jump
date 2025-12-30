@@ -72,8 +72,8 @@ function update(){
       const uou = o.y - b.y ;
 
       o.x -= o.speed * dt * 0.1;
-      o.height = clamp(o.height, 0, 3);
-      uou = clamp(uou, -2 ,1);
+      o.height = clamp(o.height, 0, 30);
+      uou = clamp(uou, -20 ,10);
 
      if(player.x >= o.x && player.y <= o.y){
        game.over = true;
@@ -89,9 +89,27 @@ function update(){
     
 
 //렌더링
+
+//플레이어
 function ren(){
+
+  //플레이어
   ctx.fillStyle = "blue"
-  ctx.fillRect
+  ctx.fillRect(player.x, player.y, player.width, player.height)
+
+  //장애물
+  ctx.fillStyle = "white"
+  for ( let o of obstacles ){
+    ctx.fillRect(o.x, o.y, o.width, o.height)
+  }
+
+  //게임 오버
+  ctx.fillStyle = "black"
+  if(game.over){
+    ctx.fillText("Game Over", 300, 100)
+  }
+
+  
   
 
   
