@@ -10,7 +10,7 @@ const game = {
   score : 0 
 };
 
-let obh = Math.round(Math.random()*4)
+let obh = Math.round(Math.random()*40)
 let jump = false;
 let jt = 0;
 let lt = 0;
@@ -34,11 +34,11 @@ function spobs(){
   if (game.over) return;
   
   obstacles.push({
-    x= 670,
-    y= 300 - obh,
-    width= 40,
-    height= obh * 10,
-    speed = 5
+    x: 670,
+    y: 300,
+    width: 40,
+    height: 0,
+    speed: 5
   });
 };
 
@@ -53,7 +53,8 @@ window.addEventListener("keyup",() => {jump = false;})
     
 
 //실제 작동
-function update(){
+function update(dt){
+  if(game.over) return;
   //플레이어 움직임
   if(jump){
     player.y += player.speed * dt * 0.1
@@ -65,9 +66,14 @@ function update(){
 
   st += dt
   if(st >= 700){
+    obs = Math.round(Math.random()*4)
     spobs();
-    st = 0;
-    for ( let i = obstacles.length-1, i>=0, i-- ) {
+    st = 0
+    obstacles.height = obs
+    obstacles.y = 300 - obs
+  }
+  
+  for ( let i = obstacles.length-1; i>=0; i-- ) {
       const o = obstacles[i];
       //const b = obstacles[i-1];
       //const uou = o.y - b.y ;
@@ -76,14 +82,13 @@ function update(){
       o.height = clamp(o.height, 0, 30);
       //uou = clamp(uou, -20 ,10);
 
-     if(player.x >= o.x && player.y <= o.y){
+     if(player.x >= o.x && player.y >= o.y){
        game.over = true;
      }
-     /*if(o.x <= WIDTH - o.width){
-       sob = true;}*/
+     if(o.x <= WIDTH - o.width){
+       spobs();}
      if(o.x + o.width <= 0){
        obstacles.splice(i,1);}
-    }
   }
 }
           
@@ -108,7 +113,7 @@ function ren(){
   if(game.over){
     ctx.fillText("Game Over", 300, 100)
   }
-
+}
   
   
 
@@ -125,8 +130,3 @@ function loop(time){
 
   //시작
   requestAnimationFrame(loop);
-
-  
-    
-  
-
